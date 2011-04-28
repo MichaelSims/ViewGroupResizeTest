@@ -4,3 +4,4 @@
 *.iws
 local.properties
 gen
+out
