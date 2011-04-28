@@ -2,3 +2,5 @@
 *.eml
 *.ipr
 *.iws
+local.properties
+gen
