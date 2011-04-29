@@ -36,12 +36,14 @@ public class MyActivity extends Activity {
 
         /* Build our manually sized views */
         RelativeLayout manuallySizedView = (RelativeLayout) inflater.inflate(R.layout.manually_sized_view, null);
-        manuallySizedView.setLayoutParams(new ViewGroup.LayoutParams(200, 200));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100, 100);
+        layoutParams.setMargins(50, 50, 0, 0);
+        manuallySizedView.setLayoutParams(layoutParams);
         HolderForManuallySizedView holder = new HolderForManuallySizedView();
         holder.textView = (TextView) manuallySizedView.findViewById(R.id.textView);
         manuallySizedView.setTag(holder);
         holder.textView.setText("left");
-        resizeableFrame.addView(manuallySizedView);
+        viewContainer.addView(manuallySizedView);
 
     }
 
