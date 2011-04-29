@@ -1,25 +1,31 @@
 package com.example;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class MyActivity extends Activity {
 
     private FrameLayout resizeableFrame;
     private RelativeLayout viewContainer;
+    private LayoutInflater inflater;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         initializeViews();
 
@@ -28,6 +34,15 @@ public class MyActivity extends Activity {
         params.width = 300;
         params.height = 300;
 
+        /* Build our manually sized views */
+        RelativeLayout manuallySizedView = (RelativeLayout) inflater.inflate(R.layout.manually_sized_view, null);
+        manuallySizedView.setLayoutParams(new ViewGroup.LayoutParams(200, 200));
+        HolderForManuallySizedView holder = new HolderForManuallySizedView();
+        holder.textView = (TextView) manuallySizedView.findViewById(R.id.textView);
+        manuallySizedView.setTag(holder);
+        holder.textView.setText("left");
+        resizeableFrame.addView(manuallySizedView);
+
     }
 
     private void initializeViews() {
@@ -35,4 +50,7 @@ public class MyActivity extends Activity {
         viewContainer = (RelativeLayout) findViewById(R.id.manuallySizedViewContainer);
     }
 
+    private static class HolderForManuallySizedView {
+        TextView textView;
+    }
 }
