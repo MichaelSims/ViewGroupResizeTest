@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 public class MyActivity extends Activity {
 
+    private static final String TAG = MyActivity.class.getSimpleName();
     private FrameLayout resizeableFrame;
     private RelativeLayout viewContainer;
     private LayoutInflater inflater;
@@ -23,6 +24,7 @@ public class MyActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
         setContentView(R.layout.main);
 
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
