@@ -35,6 +35,11 @@ public class MyActivity extends Activity {
         params.height = 300;
 
         /* Build our manually sized views */
+        viewContainer.addView(getLeftView());
+
+    }
+
+    private RelativeLayout getLeftView() {
         RelativeLayout manuallySizedView = (RelativeLayout) inflater.inflate(R.layout.manually_sized_view, null);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100, 100);
         layoutParams.setMargins(50, 50, 0, 0);
@@ -43,8 +48,7 @@ public class MyActivity extends Activity {
         holder.textView = (TextView) manuallySizedView.findViewById(R.id.textView);
         manuallySizedView.setTag(holder);
         holder.textView.setText("left");
-        viewContainer.addView(manuallySizedView);
-
+        return manuallySizedView;
     }
 
     private void initializeViews() {
