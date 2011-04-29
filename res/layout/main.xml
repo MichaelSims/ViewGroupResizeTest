@@ -8,7 +8,12 @@
         android:id="@+id/resizableFrame"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_centerInParent="true"
-        android:background="#FF0000"/>
+        android:layout_centerInParent="true">
+        <RelativeLayout
+            android:id="@+id/manuallySizedViewContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FF0000"/>
+    </FrameLayout>
 </RelativeLayout>
 
