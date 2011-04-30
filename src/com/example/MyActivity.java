@@ -18,8 +18,8 @@ import android.widget.TextView;
 public class MyActivity extends Activity {
 
     private static final String TAG = Util.getLoggingTag(MyActivity.class);
-    private FrameLayout resizeableFrame;
-    private RelativeLayout viewContainer;
+    private FrameLayout resizeableFrame; //programMapContainer
+    private RelativeLayout viewContainer; //programMap
     private LayoutInflater inflater;
 
     @Override
@@ -38,7 +38,7 @@ public class MyActivity extends Activity {
 
     }
 
-    private RelativeLayout getLeftView() {
+    private RelativeLayout getLeftView() { //programItem
         RelativeLayout manuallySizedView = createManuallySizedView();
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100, 100);
