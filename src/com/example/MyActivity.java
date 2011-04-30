@@ -57,9 +57,14 @@ public class MyActivity extends Activity {
             super.onSizeChanged(w, h, oldw, oldh);
             Log.d(TAG, "onSizeChanged");
             if (h != 0 && w != 0) {
-                sizedViewContainer.addView(getSizedView(SIZED_VIEW_MARGIN, "left"));
-                sizedViewContainer.addView(getSizedView(getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right"));
+                resetSizedViews();
             }
+        }
+
+        private void resetSizedViews() {
+            sizedViewContainer.removeAllViews();
+            sizedViewContainer.addView(getSizedView(SIZED_VIEW_MARGIN, "left"));
+            sizedViewContainer.addView(getSizedView(getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right"));
         }
 
         private RelativeLayout getSizedView(int leftMargin, String label) { //programItem
