@@ -2,21 +2,24 @@ package com.example;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 
 public class MyActivity extends Activity {
 
     private static final String TAG = Util.getLoggingTag(MyActivity.class);
     private static final int SIZED_VIEW_HEIGHT = 60;
+    private static final int FAT_WIDTH = 300;
+    private static final int SKINNY_WIDTH = 200;
     private MyFrameLayout resizeableFrame; //programMapContainer
     private RelativeLayout viewContainer; //programMap
+    private boolean isSkinny = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,14 @@ public class MyActivity extends Activity {
         resizeableFrame = (MyFrameLayout) findViewById(R.id.resizableFrame);
         viewContainer = (RelativeLayout) findViewById(R.id.sizedViewContainer);
         resizeableFrame.setSizedViewContainer(viewContainer);
+        Button resizeButton = (Button) findViewById(R.id.resizeButton);
+        resizeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                resizeableFrame.getLayoutParams().width = isSkinny ? FAT_WIDTH : SKINNY_WIDTH;
+                isSkinny = !isSkinny;
+                view.requestLayout();
+            }
+        });
     }
 
     private static class MyFrameLayout extends FrameLayout {
