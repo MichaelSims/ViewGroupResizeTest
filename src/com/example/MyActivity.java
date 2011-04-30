@@ -32,6 +32,7 @@ public class MyActivity extends Activity {
     private static class MyFrameLayout extends FrameLayout {
 
         private static final String TAG = Util.getLoggingTag(MyFrameLayout.class);
+        private static final int SIZED_VIEW_MARGIN = 30;
         private ViewGroup sizedViewContainer;
         private LayoutInflater inflater;
 
@@ -45,7 +46,8 @@ public class MyActivity extends Activity {
             super.onSizeChanged(w, h, oldw, oldh);
             Log.d(TAG, "onSizeChanged");
             if (h != 0 && w != 0) {
-                sizedViewContainer.addView(getSizedView(50, "left"));
+                sizedViewContainer.addView(getSizedView(SIZED_VIEW_MARGIN, "left"));
+                sizedViewContainer.addView(getSizedView(getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right"));
             }
         }
 
