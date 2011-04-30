@@ -39,15 +39,21 @@ public class MyActivity extends Activity {
     }
 
     private RelativeLayout getLeftView() {
-        RelativeLayout manuallySizedView = (RelativeLayout) inflater.inflate(R.layout.manually_sized_view, null);
+        RelativeLayout manuallySizedView = createManuallySizedView();
+
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100, 100);
         layoutParams.setMargins(50, 50, 0, 0);
         manuallySizedView.setLayoutParams(layoutParams);
+
         HolderForManuallySizedView holder = new HolderForManuallySizedView();
         holder.textView = (TextView) manuallySizedView.findViewById(R.id.textView);
         manuallySizedView.setTag(holder);
         holder.textView.setText("left");
         return manuallySizedView;
+    }
+
+    private RelativeLayout createManuallySizedView() {
+        return (RelativeLayout) inflater.inflate(R.layout.manually_sized_view, null);
     }
 
     private void initializeViews() {
