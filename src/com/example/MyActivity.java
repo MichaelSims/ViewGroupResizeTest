@@ -32,7 +32,6 @@ public class MyActivity extends Activity {
 
         initializeViews();
 
-
         /* Build our manually sized views */
         viewContainer.addView(getLeftView());
 
