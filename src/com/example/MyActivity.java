@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 
 public class MyActivity extends Activity {
 
-    private static final String TAG = MyActivity.class.getSimpleName();
+    private static final String TAG = Util.getLoggingTag(MyActivity.class);
     private FrameLayout resizeableFrame;
     private RelativeLayout viewContainer;
     private LayoutInflater inflater;
@@ -60,5 +61,26 @@ public class MyActivity extends Activity {
 
     private static class HolderForManuallySizedView {
         TextView textView;
+    }
+
+    private static class MyFrameLayout extends FrameLayout {
+
+        private static final String TAG = Util.getLoggingTag(MyFrameLayout.class);
+
+        public MyFrameLayout(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @Override
+        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+            super.onSizeChanged(w, h, oldw, oldh);
+            Log.d(TAG, "onSizeChanged");
+        }
+
+        @Override
+        protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+            super.onLayout(changed, left, top, right, bottom);
+            Log.d(TAG, "onLayout");
+        }
     }
 }

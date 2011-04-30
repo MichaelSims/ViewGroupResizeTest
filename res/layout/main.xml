@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <FrameLayout
+    <view
+        class="com.example.MyActivity$MyFrameLayout"
         android:id="@+id/resizableFrame"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -14,6 +15,6 @@
             android:id="@+id/manuallySizedViewContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-    </FrameLayout>
+    </view>
 </RelativeLayout>
 
