@@ -12,7 +12,7 @@
         android:layout_centerInParent="true"
         android:background="#FF0000">
         <RelativeLayout
-            android:id="@+id/manuallySizedViewContainer"
+            android:id="@+id/sizedViewContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </view>

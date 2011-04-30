@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class MyActivity extends Activity {
 
     private static final String TAG = Util.getLoggingTag(MyActivity.class);
-    private static final int MANUALLY_SIZED_VIEW_HEIGHT = 60;
+    private static final int SIZED_VIEW_HEIGHT = 60;
     private MyFrameLayout resizeableFrame; //programMapContainer
     private RelativeLayout viewContainer; //programMap
 
@@ -25,14 +25,14 @@ public class MyActivity extends Activity {
         setContentView(R.layout.main);
 
         resizeableFrame = (MyFrameLayout) findViewById(R.id.resizableFrame);
-        viewContainer = (RelativeLayout) findViewById(R.id.manuallySizedViewContainer);
-        resizeableFrame.setManuallySizedViewContainer(viewContainer);
+        viewContainer = (RelativeLayout) findViewById(R.id.sizedViewContainer);
+        resizeableFrame.setSizedViewContainer(viewContainer);
     }
 
     private static class MyFrameLayout extends FrameLayout {
 
         private static final String TAG = Util.getLoggingTag(MyFrameLayout.class);
-        private ViewGroup manuallySizedViewContainer;
+        private ViewGroup sizedViewContainer;
         private LayoutInflater inflater;
 
         public MyFrameLayout(Context context, AttributeSet attrs) {
@@ -45,40 +45,40 @@ public class MyActivity extends Activity {
             super.onSizeChanged(w, h, oldw, oldh);
             Log.d(TAG, "onSizeChanged");
             if (h != 0 && w != 0) {
-                manuallySizedViewContainer.addView(getManuallySizedView(50, "left"));
+                sizedViewContainer.addView(getSizedView(50, "left"));
             }
         }
 
-        private RelativeLayout getManuallySizedView(int leftMargin, String label) { //programItem
-            RelativeLayout manuallySizedView = createManuallySizedView();
-            setLayoutParams(manuallySizedView, leftMargin);
-            buildTextView(manuallySizedView, label);
-            return manuallySizedView;
+        private RelativeLayout getSizedView(int leftMargin, String label) { //programItem
+            RelativeLayout sizedView = getSizedView();
+            setLayoutParams(sizedView, leftMargin);
+            buildTextView(sizedView, label);
+            return sizedView;
         }
 
-        private void buildTextView(RelativeLayout manuallySizedView, String label) {
-            HolderForManuallySizedView holder = new HolderForManuallySizedView();
-            holder.textView = (TextView) manuallySizedView.findViewById(R.id.textView);
-            manuallySizedView.setTag(holder);
+        private void buildTextView(RelativeLayout sizedView, String label) {
+            HolderForSizedView holder = new HolderForSizedView();
+            holder.textView = (TextView) sizedView.findViewById(R.id.textView);
+            sizedView.setTag(holder);
             holder.textView.setText(label);
         }
 
-        private void setLayoutParams(RelativeLayout manuallySizedView, int leftMargin) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getWidthForManuallySizedView(), MANUALLY_SIZED_VIEW_HEIGHT);
-            layoutParams.setMargins(leftMargin, getTopMarginForManuallySizedView(), 0, 0);
-            manuallySizedView.setLayoutParams(layoutParams);
+        private void setLayoutParams(RelativeLayout sizedView, int leftMargin) {
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getWidthForSizedView(), SIZED_VIEW_HEIGHT);
+            layoutParams.setMargins(leftMargin, getTopMarginForSizedView(), 0, 0);
+            sizedView.setLayoutParams(layoutParams);
         }
 
-        private int getTopMarginForManuallySizedView() {
-            return Math.round((getHeight() - MANUALLY_SIZED_VIEW_HEIGHT) / 2);
+        private int getTopMarginForSizedView() {
+            return Math.round((getHeight() - SIZED_VIEW_HEIGHT) / 2);
         }
 
-        private int getWidthForManuallySizedView() {
+        private int getWidthForSizedView() {
             return Math.round(getWidth() / 3);
         }
 
-        private RelativeLayout createManuallySizedView() {
-            return (RelativeLayout) inflater.inflate(R.layout.manually_sized_view, null);
+        private RelativeLayout getSizedView() {
+            return (RelativeLayout) inflater.inflate(R.layout.sized_view, null);
         }
 
         @Override
@@ -87,11 +87,11 @@ public class MyActivity extends Activity {
             Log.d(TAG, "onLayout");
         }
 
-        public void setManuallySizedViewContainer(ViewGroup manuallySizedViewContainer) {
-            this.manuallySizedViewContainer = manuallySizedViewContainer;
+        public void setSizedViewContainer(ViewGroup sizedViewContainer) {
+            this.sizedViewContainer = sizedViewContainer;
         }
 
-        private static class HolderForManuallySizedView {
+        private static class HolderForSizedView {
             TextView textView;
         }
 
