@@ -45,25 +45,35 @@ public class MyActivity extends Activity {
             super.onSizeChanged(w, h, oldw, oldh);
             Log.d(TAG, "onSizeChanged");
             if (h != 0 && w != 0) {
-                manuallySizedViewContainer.addView(getLeftView());
+                manuallySizedViewContainer.addView(getManuallySizedView(50, "left"));
             }
         }
 
-        private RelativeLayout getLeftView() { //programItem
+        private RelativeLayout getManuallySizedView(int leftMargin, String label) { //programItem
             RelativeLayout manuallySizedView = createManuallySizedView();
-
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getManuallySizedViewWidth(), MANUALLY_SIZED_VIEW_HEIGHT);
-            layoutParams.setMargins(50, 50, 0, 0);
-            manuallySizedView.setLayoutParams(layoutParams);
-
-            HolderForManuallySizedView holder = new HolderForManuallySizedView();
-            holder.textView = (TextView) manuallySizedView.findViewById(R.id.textView);
-            manuallySizedView.setTag(holder);
-            holder.textView.setText("left");
+            setLayoutParams(manuallySizedView, leftMargin);
+            buildTextView(manuallySizedView, label);
             return manuallySizedView;
         }
 
-        private int getManuallySizedViewWidth() {
+        private void buildTextView(RelativeLayout manuallySizedView, String label) {
+            HolderForManuallySizedView holder = new HolderForManuallySizedView();
+            holder.textView = (TextView) manuallySizedView.findViewById(R.id.textView);
+            manuallySizedView.setTag(holder);
+            holder.textView.setText(label);
+        }
+
+        private void setLayoutParams(RelativeLayout manuallySizedView, int leftMargin) {
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getWidthForManuallySizedView(), MANUALLY_SIZED_VIEW_HEIGHT);
+            layoutParams.setMargins(leftMargin, getTopMarginForManuallySizedView(), 0, 0);
+            manuallySizedView.setLayoutParams(layoutParams);
+        }
+
+        private int getTopMarginForManuallySizedView() {
+            return Math.round((getHeight() - MANUALLY_SIZED_VIEW_HEIGHT) / 2);
+        }
+
+        private int getWidthForManuallySizedView() {
             return Math.round(getWidth() / 3);
         }
 
