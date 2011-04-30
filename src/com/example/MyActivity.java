@@ -32,10 +32,6 @@ public class MyActivity extends Activity {
 
         initializeViews();
 
-        /* Set a static size of the resizeable frame */
-        ViewGroup.LayoutParams params = resizeableFrame.getLayoutParams();
-        params.width = 300;
-        params.height = 300;
 
         /* Build our manually sized views */
         viewContainer.addView(getLeftView());
