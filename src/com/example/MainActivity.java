@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 
 public class MainActivity extends Activity {
@@ -43,6 +42,8 @@ public class MainActivity extends Activity {
         private boolean isSkinny = false;
         private static final int FAT_WIDTH = 300;
         private static final int SKINNY_WIDTH = 200;
+        private RelativeLayout leftSizedView;
+        private RelativeLayout rightSizedView;
 
         public ResizeableFrame(Context context, AttributeSet attrs) {
             super(context, attrs);
@@ -59,15 +60,17 @@ public class MainActivity extends Activity {
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
             super.onSizeChanged(w, h, oldw, oldh);
             Log.d(TAG, String.format("onSizeChanged w:%s h:%s oldw:%s oldh:%s", w, h, oldw, oldh));
-            if (h != 0 && w != 0) {
-                resetSizedViews();
+            if (oldw == 0) {
+                initializeSizedViews();
             }
         }
 
-        private void resetSizedViews() {
+        private void initializeSizedViews() {
             sizedViewContainer.removeAllViews();
-            sizedViewContainer.addView(getSizedView(SIZED_VIEW_MARGIN, "left"));
-            sizedViewContainer.addView(getSizedView(getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right"));
+            leftSizedView = getSizedView(SIZED_VIEW_MARGIN, "left");
+            rightSizedView = getSizedView(getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right");
+            sizedViewContainer.addView(leftSizedView);
+            sizedViewContainer.addView(rightSizedView);
         }
 
         private RelativeLayout getSizedView(int leftMargin, String label) { //programItem
@@ -96,6 +99,14 @@ public class MainActivity extends Activity {
         protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
             super.onLayout(changed, left, top, right, bottom);
             Log.d(TAG, "onLayout");
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            Log.d(TAG, String.format("onMeasure width:%s width mode:%s height:%s height mode:%s",
+                    MeasureSpec.getSize(widthMeasureSpec), Util.measureSpecModeToString(MeasureSpec.getMode(widthMeasureSpec)),
+                    MeasureSpec.getSize(heightMeasureSpec), Util.measureSpecModeToString(MeasureSpec.getMode(heightMeasureSpec))));
         }
 
         public void toggleFatSkinny() {
