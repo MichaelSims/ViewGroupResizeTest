@@ -36,27 +36,21 @@ public class MainActivity extends Activity {
 
         private static final String TAG = Util.getLoggingTag(ResizeableFrame.class);
 
-        private static final int SIZED_VIEW_MARGIN = 30;
-        private static final int SIZED_VIEW_HEIGHT = 60;
-        private RelativeLayout sizedViewContainer; //programMap
+        private SizedViewContainer sizedViewContainer; //programMap
 
-        private LayoutInflater inflater;
-        
         private boolean isSkinny = false;
         private static final int FAT_WIDTH = 300;
         private static final int SKINNY_WIDTH = 200;
-        private RelativeLayout leftSizedView;
-        private RelativeLayout rightSizedView;
 
         public ResizeableFrame(Context context, AttributeSet attrs) {
             super(context, attrs);
-            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
-            sizedViewContainer = (RelativeLayout) findViewById(R.id.sizedViewContainer);
+            sizedViewContainer = (SizedViewContainer) findViewById(R.id.sizedViewContainer);
+            sizedViewContainer.setResizeableFrame(this);
         }
 
         @Override
@@ -64,15 +58,43 @@ public class MainActivity extends Activity {
             super.onSizeChanged(w, h, oldw, oldh);
             Log.d(TAG, String.format("onSizeChanged w:%s h:%s oldw:%s oldh:%s", w, h, oldw, oldh));
             if (oldw == 0) {
-                initializeSizedViews();
+                sizedViewContainer.initializeSizedViews();
             }
+        }
+
+        public void toggleFatSkinny() {
+            isSkinny = !isSkinny;
+            getLayoutParams().width = isSkinny ? SKINNY_WIDTH : FAT_WIDTH;
+            requestLayout();
+        }
+
+    }
+
+    private static class SizedViewContainer extends RelativeLayout {
+
+        private static final String TAG = Util.getLoggingTag(SizedViewContainer.class);
+
+        private static final int SIZED_VIEW_MARGIN = 30;
+        private static final int SIZED_VIEW_HEIGHT = 60;
+
+        private LayoutInflater inflater;
+
+        private ResizeableFrame resizeableFrame;
+
+        private RelativeLayout leftSizedView;
+        private RelativeLayout rightSizedView;
+
+        public SizedViewContainer(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
         private void initializeSizedViews() {
             leftSizedView = getSizedView(SIZED_VIEW_MARGIN, "left");
-            rightSizedView = getSizedView(getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right");
-            sizedViewContainer.addView(leftSizedView);
-            sizedViewContainer.addView(rightSizedView);
+            rightSizedView = getSizedView(resizeableFrame.getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right");
+            addView(leftSizedView);
+            addView(rightSizedView);
+            requestLayout();
         }
 
         private RelativeLayout getSizedView(int leftMargin, String label) { //programItem
@@ -90,11 +112,11 @@ public class MainActivity extends Activity {
         }
 
         private int getTopMarginForSizedView() {
-            return Math.round((getHeight() - SIZED_VIEW_HEIGHT) / 2); //Vertically center the sized view inside the resizeable frame
+            return Math.round((resizeableFrame.getHeight() - SIZED_VIEW_HEIGHT) / 2); //Vertically center the sized view inside the resizeable frame
         }
 
         private int getWidthForSizedView() {
-            return Math.round(getWidth() / 3); //Make the sized view 1/3 the width of the resizeable frame
+            return Math.round(resizeableFrame.getWidth() / 3); //Make the sized view 1/3 the width of the resizeable frame
         }
 
         @Override
@@ -112,17 +134,8 @@ public class MainActivity extends Activity {
                     MeasureSpec.getSize(heightMeasureSpec), Util.measureSpecModeToString(MeasureSpec.getMode(heightMeasureSpec))));
         }
 
-        public void toggleFatSkinny() {
-            isSkinny = !isSkinny;
-            getLayoutParams().width = isSkinny ? SKINNY_WIDTH : FAT_WIDTH;
-            requestLayout();
-        }
-
-    }
-
-    private static class SizedViewContainer extends RelativeLayout {
-        public SizedViewContainer(Context context, AttributeSet attrs) {
-            super(context, attrs);
+        public void setResizeableFrame(ResizeableFrame resizeableFrame) {
+            this.resizeableFrame = resizeableFrame;
         }
     }
 }
