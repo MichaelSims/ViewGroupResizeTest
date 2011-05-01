@@ -2,7 +2,6 @@ package com.example;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -70,15 +69,8 @@ public class MyActivity extends Activity {
         private RelativeLayout getSizedView(int leftMargin, String label) { //programItem
             RelativeLayout sizedView = getSizedView();
             setLayoutParams(sizedView, leftMargin);
-            buildTextView(sizedView, label);
+            ((TextView) sizedView.findViewById(R.id.textView)).setText(label);
             return sizedView;
-        }
-
-        private void buildTextView(RelativeLayout sizedView, String label) {
-            HolderForSizedView holder = new HolderForSizedView();
-            holder.textView = (TextView) sizedView.findViewById(R.id.textView);
-            sizedView.setTag(holder);
-            holder.textView.setText(label);
         }
 
         private void setLayoutParams(RelativeLayout sizedView, int leftMargin) {
@@ -107,10 +99,6 @@ public class MyActivity extends Activity {
 
         public void setSizedViewContainer(ViewGroup sizedViewContainer) {
             this.sizedViewContainer = sizedViewContainer;
-        }
-
-        private static class HolderForSizedView {
-            TextView textView;
         }
 
     }
