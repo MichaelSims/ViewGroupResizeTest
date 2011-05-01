@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 
         private static final int SIZED_VIEW_MARGIN = 30;
         private static final int SIZED_VIEW_HEIGHT = 60;
-        private ViewGroup sizedViewContainer; //programMap
+        private RelativeLayout sizedViewContainer; //programMap
 
         private LayoutInflater inflater;
         
