@@ -61,6 +61,13 @@ public class MainActivity extends Activity {
             Log.d(TAG, String.format("onSizeChanged w:%s h:%s oldw:%s oldh:%s", w, h, oldw, oldh));
             if (h != 0 && w != 0) {
                 resetSizedViews();
+
+                /* HACK - why is this necessary for the sized views to display? */
+                post(new Runnable() {
+                    public void run() {
+                        requestLayout();
+                    }
+                });
             }
         }
 
