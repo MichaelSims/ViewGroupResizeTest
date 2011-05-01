@@ -66,7 +66,6 @@ public class MainActivity extends Activity {
         }
 
         private void initializeSizedViews() {
-            sizedViewContainer.removeAllViews();
             leftSizedView = getSizedView(SIZED_VIEW_MARGIN, "left");
             rightSizedView = getSizedView(getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right");
             sizedViewContainer.addView(leftSizedView);
