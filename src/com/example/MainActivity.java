@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
             super.onSizeChanged(w, h, oldw, oldh);
-            Log.d(TAG, "onSizeChanged");
+            Log.d(TAG, String.format("onSizeChanged w:%s h:%s oldw:%s oldh:%s", w, h, oldw, oldh));
             if (h != 0 && w != 0) {
                 resetSizedViews();
             }
