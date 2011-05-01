@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
-public class MyActivity extends Activity {
+public class MainActivity extends Activity {
 
-    private static final String TAG = Util.getLoggingTag(MyActivity.class);
+    private static final String TAG = Util.getLoggingTag(MainActivity.class);
     private static final int SIZED_VIEW_HEIGHT = 60;
     private static final int FAT_WIDTH = 300;
     private static final int SKINNY_WIDTH = 200;
