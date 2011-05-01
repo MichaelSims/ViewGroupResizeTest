@@ -100,9 +100,11 @@ public class MainActivity extends Activity {
             RelativeLayout sizedView = (RelativeLayout) inflater.inflate(R.layout.sized_view, null);
 
             /* Set layout params */
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getWidthForSizedView(), SIZED_VIEW_HEIGHT);
-            layoutParams.setMargins(leftMargin, getTopMarginForSizedView(), 0, 0);
-            sizedView.setLayoutParams(layoutParams);
+//            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getWidthForSizedView(), SIZED_VIEW_HEIGHT);
+//            layoutParams.setMargins(leftMargin, getTopMarginForSizedView(), 0, 0);
+//            sizedView.setLayoutParams(layoutParams);
+//            Log.d(TAG, String.format("Created sized view with width %s, height %s, left margin %s, and top margin %s",
+//                    layoutParams.width, layoutParams.height, layoutParams.leftMargin, layoutParams.topMargin));
 
             /* Set text view label */
             ((TextView) sizedView.findViewById(R.id.textView)).setText(label);
@@ -127,10 +129,33 @@ public class MainActivity extends Activity {
 
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             Log.d(TAG, String.format("onMeasure width:%s width mode:%s height:%s height mode:%s",
                     MeasureSpec.getSize(widthMeasureSpec), Util.measureSpecModeToString(MeasureSpec.getMode(widthMeasureSpec)),
                     MeasureSpec.getSize(heightMeasureSpec), Util.measureSpecModeToString(MeasureSpec.getMode(heightMeasureSpec))));
+
+            setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),
+                    getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));
+
+            /* Measure the child views */
+            for (View view : new View[] { leftSizedView, rightSizedView }) {
+                if (view != null) {
+                    int widthSpec = MeasureSpec.makeMeasureSpec(Math.round(getMeasuredWidth() / 3), MeasureSpec.EXACTLY);
+                    int heightSpec = MeasureSpec.makeMeasureSpec(SIZED_VIEW_HEIGHT, MeasureSpec.EXACTLY);
+                    view.measure(widthSpec, heightSpec);
+                    Log.d(TAG, String.format("view %s width %s, height %s", view, view.getMeasuredWidth(), view.getMeasuredHeight()));
+                }
+            }
+
+
+//            measureChild();
+//            getChildMeasureSpec();
+//            getMeasuredWidth();
+//            getMeasuredHeight();
+//            leftSizedView.measure();
+//            rightSizedView.measure();
+            
+            //TODO call measure on children
+            
         }
 
         public void setResizeableFrame(ResizeableFrame resizeableFrame) {
