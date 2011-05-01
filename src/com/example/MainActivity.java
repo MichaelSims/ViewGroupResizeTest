@@ -94,7 +94,6 @@ public class MainActivity extends Activity {
             rightSizedView = getSizedView(resizeableFrame.getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right");
             addView(leftSizedView);
             addView(rightSizedView);
-            requestLayout();
         }
 
         private RelativeLayout getSizedView(int leftMargin, String label) { //programItem
