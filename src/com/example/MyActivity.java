@@ -67,16 +67,17 @@ public class MyActivity extends Activity {
         }
 
         private RelativeLayout getSizedView(int leftMargin, String label) { //programItem
-            RelativeLayout sizedView = getSizedView();
-            setLayoutParams(sizedView, leftMargin);
-            ((TextView) sizedView.findViewById(R.id.textView)).setText(label);
-            return sizedView;
-        }
+            RelativeLayout sizedView = (RelativeLayout) inflater.inflate(R.layout.sized_view, null);
 
-        private void setLayoutParams(RelativeLayout sizedView, int leftMargin) {
+            /* Set layout params */
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getWidthForSizedView(), SIZED_VIEW_HEIGHT);
             layoutParams.setMargins(leftMargin, getTopMarginForSizedView(), 0, 0);
             sizedView.setLayoutParams(layoutParams);
+
+            /* Set text view label */
+            ((TextView) sizedView.findViewById(R.id.textView)).setText(label);
+
+            return sizedView;
         }
 
         private int getTopMarginForSizedView() {
@@ -85,10 +86,6 @@ public class MyActivity extends Activity {
 
         private int getWidthForSizedView() {
             return Math.round(getWidth() / 3);
-        }
-
-        private RelativeLayout getSizedView() {
-            return (RelativeLayout) inflater.inflate(R.layout.sized_view, null);
         }
 
         @Override
