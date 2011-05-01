@@ -99,8 +99,8 @@ public class MainActivity extends Activity {
         }
 
         public void toggleFatSkinny() {
-            getLayoutParams().width = isSkinny ? FAT_WIDTH : SKINNY_WIDTH;
             isSkinny = !isSkinny;
+            getLayoutParams().width = isSkinny ? SKINNY_WIDTH : FAT_WIDTH;
             requestLayout();
         }
 
