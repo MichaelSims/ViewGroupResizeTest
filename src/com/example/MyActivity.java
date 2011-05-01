@@ -16,7 +16,7 @@ public class MyActivity extends Activity {
     private static final int SIZED_VIEW_HEIGHT = 60;
     private static final int FAT_WIDTH = 300;
     private static final int SKINNY_WIDTH = 200;
-    private MyFrameLayout resizeableFrame; //programMapContainer
+    private ResizeableFrame resizeableFrame; //programMapContainer
     private RelativeLayout viewContainer; //programMap
     private boolean isSkinny = false;
 
@@ -26,7 +26,7 @@ public class MyActivity extends Activity {
         Log.d(TAG, "onCreate");
         setContentView(R.layout.main);
 
-        resizeableFrame = (MyFrameLayout) findViewById(R.id.resizableFrame);
+        resizeableFrame = (ResizeableFrame) findViewById(R.id.resizableFrame);
         viewContainer = (RelativeLayout) findViewById(R.id.sizedViewContainer);
         resizeableFrame.setSizedViewContainer(viewContainer);
         Button resizeButton = (Button) findViewById(R.id.resizeButton);
@@ -39,14 +39,14 @@ public class MyActivity extends Activity {
         });
     }
 
-    private static class MyFrameLayout extends FrameLayout {
+    private static class ResizeableFrame extends FrameLayout {
 
-        private static final String TAG = Util.getLoggingTag(MyFrameLayout.class);
+        private static final String TAG = Util.getLoggingTag(ResizeableFrame.class);
         private static final int SIZED_VIEW_MARGIN = 30;
         private ViewGroup sizedViewContainer;
         private LayoutInflater inflater;
 
-        public MyFrameLayout(Context context, AttributeSet attrs) {
+        public ResizeableFrame(Context context, AttributeSet attrs) {
             super(context, attrs);
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -81,11 +81,11 @@ public class MyActivity extends Activity {
         }
 
         private int getTopMarginForSizedView() {
-            return Math.round((getHeight() - SIZED_VIEW_HEIGHT) / 2);
+            return Math.round((getHeight() - SIZED_VIEW_HEIGHT) / 2); //Vertically center the sized view inside the resizeable frame
         }
 
         private int getWidthForSizedView() {
-            return Math.round(getWidth() / 3);
+            return Math.round(getWidth() / 3); //Make the sized view 1/3 the width of the resizeable frame
         }
 
         @Override

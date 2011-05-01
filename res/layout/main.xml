@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     >
     <view
-        class="com.example.MyActivity$MyFrameLayout"
+        class="com.example.MyActivity$ResizeableFrame"
         android:id="@+id/resizableFrame"
         android:layout_width="300dp"
         android:layout_height="200dp"
