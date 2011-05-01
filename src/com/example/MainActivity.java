@@ -97,7 +97,8 @@ public class MainActivity extends Activity {
         @Override
         protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
             super.onLayout(changed, left, top, right, bottom);
-            Log.d(TAG, "onLayout");
+            Log.d(TAG, String.format("onLayout changed %s, left %s, top %s, right %s, bottom %s",
+                    changed, left, top, right, bottom));
         }
 
         @Override
