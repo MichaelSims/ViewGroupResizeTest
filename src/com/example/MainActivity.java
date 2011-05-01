@@ -7,7 +7,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -115,5 +118,11 @@ public class MainActivity extends Activity {
             requestLayout();
         }
 
+    }
+
+    private static class SizedViewContainer extends RelativeLayout {
+        public SizedViewContainer(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
     }
 }

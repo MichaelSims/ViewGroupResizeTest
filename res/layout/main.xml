@@ -11,7 +11,8 @@
         android:layout_height="200dp"
         android:layout_centerInParent="true"
         android:background="#FF0000">
-        <RelativeLayout
+        <view
+            class="com.example.MainActivity$SizedViewContainer"
             android:id="@+id/sizedViewContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
