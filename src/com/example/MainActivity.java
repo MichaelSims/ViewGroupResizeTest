@@ -13,12 +13,7 @@ import android.widget.*;
 public class MainActivity extends Activity {
 
     private static final String TAG = Util.getLoggingTag(MainActivity.class);
-    private static final int SIZED_VIEW_HEIGHT = 60;
-    private static final int FAT_WIDTH = 300;
-    private static final int SKINNY_WIDTH = 200;
     private ResizeableFrame resizeableFrame; //programMapContainer
-    private RelativeLayout viewContainer; //programMap
-    private boolean isSkinny = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,14 +22,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
 
         resizeableFrame = (ResizeableFrame) findViewById(R.id.resizableFrame);
-        viewContainer = (RelativeLayout) findViewById(R.id.sizedViewContainer);
-        resizeableFrame.setSizedViewContainer(viewContainer);
         Button resizeButton = (Button) findViewById(R.id.resizeButton);
         resizeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                resizeableFrame.getLayoutParams().width = isSkinny ? FAT_WIDTH : SKINNY_WIDTH;
-                isSkinny = !isSkinny;
-                view.requestLayout();
+                resizeableFrame.toggleFatSkinny();
             }
         });
     }
@@ -42,13 +33,26 @@ public class MainActivity extends Activity {
     private static class ResizeableFrame extends FrameLayout {
 
         private static final String TAG = Util.getLoggingTag(ResizeableFrame.class);
+
         private static final int SIZED_VIEW_MARGIN = 30;
-        private ViewGroup sizedViewContainer;
+        private static final int SIZED_VIEW_HEIGHT = 60;
+        private ViewGroup sizedViewContainer; //programMap
+
         private LayoutInflater inflater;
+        
+        private boolean isSkinny = false;
+        private static final int FAT_WIDTH = 300;
+        private static final int SKINNY_WIDTH = 200;
 
         public ResizeableFrame(Context context, AttributeSet attrs) {
             super(context, attrs);
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        protected void onFinishInflate() {
+            super.onFinishInflate();
+            sizedViewContainer = (RelativeLayout) findViewById(R.id.sizedViewContainer);
         }
 
         @Override
@@ -94,8 +98,10 @@ public class MainActivity extends Activity {
             Log.d(TAG, "onLayout");
         }
 
-        public void setSizedViewContainer(ViewGroup sizedViewContainer) {
-            this.sizedViewContainer = sizedViewContainer;
+        public void toggleFatSkinny() {
+            getLayoutParams().width = isSkinny ? FAT_WIDTH : SKINNY_WIDTH;
+            isSkinny = !isSkinny;
+            requestLayout();
         }
 
     }
