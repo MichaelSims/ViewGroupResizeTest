@@ -90,13 +90,13 @@ public class MainActivity extends Activity {
         }
 
         private void initializeSizedViews() {
-            leftSizedView = getSizedView(SIZED_VIEW_MARGIN, "left");
-            rightSizedView = getSizedView(resizeableFrame.getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right");
+            leftSizedView = createSizedView(SIZED_VIEW_MARGIN, "left");
+            rightSizedView = createSizedView(resizeableFrame.getWidth() - getWidthForSizedView() - SIZED_VIEW_MARGIN, "right");
             addView(leftSizedView);
             addView(rightSizedView);
         }
 
-        private RelativeLayout getSizedView(int leftMargin, String label) { //programItem
+        private RelativeLayout createSizedView(int leftMargin, String label) { //programItem
             RelativeLayout sizedView = (RelativeLayout) inflater.inflate(R.layout.sized_view, null);
 
             /* Set layout params */
